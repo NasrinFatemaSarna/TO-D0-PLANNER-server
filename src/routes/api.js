@@ -6,7 +6,7 @@ const TodoController = require('../controller/TodoController');
 const AuthVerificationMiddleware = require('../middleware/AuthVerificationMiddleware');
 
 router.post('/registration', UsersController.Registration);
-router.get('/login', UsersController.Login);
+router.post('/login', UsersController.Login);
 router.post('/profile-update', AuthVerificationMiddleware, UsersController.profileUpdate);
 router.get('/profile-details', AuthVerificationMiddleware, UsersController.profileDetails);
 router.get('/recover-verify-email/:email',  UsersController.recoverVerifyEmail);
