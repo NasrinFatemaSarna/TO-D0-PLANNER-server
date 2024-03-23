@@ -35,7 +35,7 @@ exports.Login = async (req, res)=>{
     }
 
     if(user.password !== reqBody.password){
-      res.status(200).json({status: 'fail', data: 'password not match'});
+      res.status(200).json({status: 'fail', data: 'wrong password'});
     }
     else {
       let payload = {exp: Math.floor(Date.now() / 1000) + (60 * 60), data: user['email'] };
@@ -51,6 +51,8 @@ exports.Login = async (req, res)=>{
   }
 
 };
+
+
 
 // login end
 
