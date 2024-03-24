@@ -3,7 +3,7 @@ const todoSchema = new mongoose.Schema(
     {
     title: {type: String},
     description: {type: String},
-    Email: {type: String},
+    email: {type: String},
     status: {type: String},
     cratedDate: {type: Date, default: Date.now()}
 

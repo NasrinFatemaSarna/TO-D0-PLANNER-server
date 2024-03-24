@@ -1,4 +1,4 @@
-var jwt = require('jsonwebtoken');
+var jwt = require("jsonwebtoken");
 
 const UserModel = require ('../models/UsersModel')
 const OtpModel = require ('../models/OtpModel')

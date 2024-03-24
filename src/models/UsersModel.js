@@ -5,8 +5,8 @@ const mongoose = require('mongoose')
 
     firstName: {type: String, required: true},
     lastName: {type: String, required: true},
-    Email: {type: String, required: true, unique: true},
-    Password: {type: String, required: true},
+    email: {type: String, required: true, unique: true},
+    password: {type: String, required: true},
     photo: {type: String},
     cratedDate: {type: Date, default: Date.now()}
    
