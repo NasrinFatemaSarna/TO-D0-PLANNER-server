@@ -14,7 +14,7 @@ app.use(rateLimit({windowMs: 15 * 60 * 1000,max: 2000}))
 
 
 app.use(cors())
-ap.use(express())
+app.use(express.json())
 
 
 
@@ -26,7 +26,7 @@ const options = { user: process.env.DB_USERNAME, pass: process.env.DB_PASSWORD }
 
 
 
-mongoose.connect(uri, options)
+ mongoose.connect(uri, options)
 .then(()=> console.log('database connected'))
 .catch((err)=> console.log(err))
 
