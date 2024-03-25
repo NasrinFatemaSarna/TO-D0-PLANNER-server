@@ -7,8 +7,15 @@ require('dotenv').config()
 const  mongoose  = require('mongoose')
 
 
-const app = express()
 app.use(bodyParser.json())
+
+
+app.use(rateLimit({windowMs: 15 * 60 * 1000,max: 2000}))
+
+
+app.use(cors())
+ap.use(express())
+
 
 
 
@@ -24,24 +31,16 @@ mongoose.connect(uri, options)
 .catch((err)=> console.log(err))
 
 
-// database connenction end
-
-
-app.use(bodyParser.json())
 app.use("/api/v1/", route)
-app.use(rateLimit({windowMs: 15 * 60 * 1000,max: 2000}))
-
-
-
-app.use(cors())
-app.use(express.json())
-
 
 app.use("*", (req, res)=>{
-    res.status(404).json({message: "Route not found"})
-  });
+  res.status(404).json({message: "Route not found"})
+});
 
-  module.exports = app
+
+// database connenction end
+
+module.exports = app
 
 
     
