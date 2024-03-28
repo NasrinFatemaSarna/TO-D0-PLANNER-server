@@ -104,13 +104,16 @@ exports.recoverVerifyEmail= async (req, res) => {
       if (!user) {
           return res.status(200).json({ status: 'fail', data: 'User not found' });
       }
+      else{
+        let createOtp = await OtpModel.create({ email: email, otp: otp });
+
+        let sendEmail = await SendEmailUtility(email, `Your OTP is ${otp}`, 'To-do-Planner Password Verify');
+  
+        return res.status(200).json(({ status: 'success', data: "otp send successfully" }))
+      }
 
 
-      let createOtp = await OtpModel.create({ email: email, otp: otp });
-
-      let sendEmail = await SendEmailUtility(email, `Your OTP is ${otp}`, 'Todo Planner Password Verify');
-
-      return res.status(200).json(({ status: 'success', data: "otp send successfully" }))
+     
   } 
   catch (error) {
       console.error(error);
