@@ -1,31 +1,23 @@
 const nodemailer = require("nodemailer");
 
-const SendEmailUtility = async (emailTo, emailText, emailSubject) => {
+const SendEmailUtility = async (emailTo, emailSubject, emailText) => {
     const transporter = nodemailer.createTransport({
         service: 'Gmail',
-        auth: {
-            user: sarna, // Use environment variables
-            pass: sarna5080, // Use environment variables
-        },
+    auth: {
+        user: "sarnaqueen@gmail.com",
+        pass: "$$sarna3333",
+    }
     });
 
     const mailOptions = {
-        from: 'Todo Planner <XJ8Zs@example.email>',
+        from: 'to-do-planner <sarnaqueen@gmail.com>',
         to: emailTo,
         subject: emailSubject,
-        text: emailText,
-        
-    
+        text: emailText
     };
+    return await transporter.sendMail(mailOptions);
+    
 
-    try {
-        const result = await transporter.sendMail(mailOptions);
-        console.log("Email sent successfully:", result);
-        return result;
-    } catch (error) {
-        console.error("Error sending email:", error);
-        throw error; // Rethrow the error for the caller to handle
-    }
 };
 
 module.exports = SendEmailUtility;

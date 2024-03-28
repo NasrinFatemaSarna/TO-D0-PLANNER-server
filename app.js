@@ -10,7 +10,7 @@ const  mongoose  = require('mongoose')
 const app = express()
 app.use(bodyParser.json())
 app.use(cors())
-app.use(express.json())
+// app.use(express.json())
 
 
 const uri = `mongodb+srv://mernpractice:${process.env.DB_PASSWORD}@cluster0.0uasavi.mongodb.net/ToDoPlanner?retryWrites=true&w=majority`;

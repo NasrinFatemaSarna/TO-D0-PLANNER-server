@@ -95,22 +95,24 @@ catch (error) {
 // recover and verify send email otp start
 
 exports.recoverVerifyEmail= async (req, res) => {
-  const email = req.params.email;
-  const otp = Math.floor(Math.random() * 10000);
+  let email = req.params.email;
+  let otp = Math.floor(Math.random() * 1000000);
 
   try {
-      const user = await UserModel.findOne({ email: email });
+      let user = await UserModel.findOne({ email: email });
 
       if (!user) {
           return res.status(200).json({ status: 'fail', data: 'User not found' });
       }
 
-      const createOtp = await OtpModel.create({ email: email, otp: otp });
 
-      const sendEmail = await SendEmailUtility(email, `Your OTP is ${otp}`, 'Todo Planner Password Verify');
+      let createOtp = await OtpModel.create({ email: email, otp: otp });
 
-      res.status(200).json({ status: 'success', data: { email: email }, message: 'OTP sent successfully' });
-  } catch (error) {
+      let sendEmail = await SendEmailUtility(email, `Your OTP is ${otp}`, 'Todo Planner Password Verify');
+
+      return res.status(200).json(({ status: 'success', data: "otp send successfully" }))
+  } 
+  catch (error) {
       console.error(error);
       res.status(200).json({ status: 'fail', data: error.message });
   }
