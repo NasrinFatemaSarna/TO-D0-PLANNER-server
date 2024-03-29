@@ -9,8 +9,8 @@ const SendEmailUtility = async (emailTo, emailSubject, emailText) => {
     }
     });
 
-    const mailOptions = {
-        from: 'to-do-planner <sarnamern@gmail.com>',
+    let mailOptions = {
+        from: 'todo planner <sarnamern@gmail.com>',
         to: emailTo,
         subject: emailSubject,
         text: emailText
