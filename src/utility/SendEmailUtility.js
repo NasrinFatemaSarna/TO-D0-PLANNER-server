@@ -1,11 +1,11 @@
 const nodemailer = require("nodemailer");
 
-const SendEmailUtility = async (emailTo, emailSubject, emailText) => {
+const SendEmailUtility = async (emailTo, emailText, emailSubject) => {
     const transporter = nodemailer.createTransport({
         service: 'Gmail',
     auth: {
         user: "sarnamern@gmail.com",
-        pass: "sarna5080",
+        pass: "fewx mhlz leku qbwa",
     }
     });
 
