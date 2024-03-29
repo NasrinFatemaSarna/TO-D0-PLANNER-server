@@ -125,27 +125,29 @@ exports.recoverVerifyEmail= async (req, res) => {
 // verify otp start
 
 exports.verifyOtp = async (req, res) => {
-  const email = req.params.email;
-  const otp = req.params.otp;
-  const status = 0;
-  const updateStatus = 1;
+  let email = req.params.email;
+  let otp = req.params.otp;
+  let status = 0;
+  let updateStatus = 1;
 
   try {
-      const otpCheck = await OtpModel.aggregate([
+      let otpCheck = await OtpModel.aggregate(
+        [
           { $match: { email: email, otp: otp, status: status } },
           { $count: 'total' }
-      ]);
+      ]
+      );
 
       if (otpCheck.length > 0) {
-          const otpUpdate = await OtpModel.updateOne({ email: email, otp: otp }, { status: updateStatus });
+          let otpUpdate = await OtpModel.updateOne({ email: email, otp: otp }, { status: updateStatus });
+         return res.status(200).json({ status: 'success', data: otpUpdate });
+      }
 
-          if (otpUpdate.nModified > 0) {
-              res.status(200).json({ status: 'success', data: { updatedOtp: otpUpdate } });
-          } else {
-              res.status(200).json({ status: 'fail', data: 'OTP not updated' });
-          }
-      } else {
-          res.status(200).json({ status: 'fail', data: 'OTP not matched' });
+
+          
+        
+       else {
+         return res.status(200).json({ status: 'fail', data: 'Otp not matched' });
       }
   } catch (error) {
       console.error(error);
