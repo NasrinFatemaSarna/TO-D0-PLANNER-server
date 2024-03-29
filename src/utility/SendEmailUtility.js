@@ -5,7 +5,7 @@ const SendEmailUtility = async (emailTo, emailSubject, emailText) => {
         service: 'Gmail',
     auth: {
         user: "sarnamern@gmail.com",
-        pass: "sarnagold",
+        pass: "sarna5080",
     }
     });
 
