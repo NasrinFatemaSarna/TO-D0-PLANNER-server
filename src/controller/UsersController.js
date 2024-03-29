@@ -157,49 +157,42 @@ exports.verifyOtp = async (req, res) => {
 // verify otp end
 
 // reset password start
-const OTP_STATUS_VERIFIED = 1;
-
 exports.ResetPassword = async (req, res) => {
-    const email = req.body.email;
-    const otp = req.body.otp;
-    const newPassword = req.body.newPassword;
+  let email = req.body.email;
+  let otp = req.body.otp;
+  let status = 0;
+  let updateStatus = 1;
+  let newPassword = req.body.password;
 
-    try {
-        const otpVerificationResult = await verifyOtp(email, otp, OTP_STATUS_VERIFIED);
+  try{
 
-        if (otpVerificationResult.success) {
-            // Proceed with password reset logic
-            // ...
-
-            res.status(200).json({ status: 'success', data: 'Password reset successful' });
-        } else {
-            // OTP verification failed
-            res.status(200).json({ status: 'fail', data: 'OTP not matched' });
-        }
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ status: 'fail', data: error.message });
+    let otpCheck = await OtpModel.aggregate(
+      [
+        { $match: { email: email, otp: otp, status: updateStatus } },
+        { $count: 'total' }
+      ]
+    );
+    if(otpCheck.length > 0){
+      let updatePassword = await UserModel.updateOne({ email: email }, { password: newPassword });
+      return res.status(200).json({ status: 'success', data: updatePassword });
     }
-};
-
-// Reusable function for OTP verification
-async function verifyOtp(email, otp, updateStatus) {
-    try {
-        const otpCheck = await OtpModel.aggregate([
-            { $match: { email: email, otp: otp, status: updateStatus } },
-            { $count: 'total' }
-        ]);
-
-        if (otpCheck.length > 0) {
-            const otpUpdate = await OtpModel.updateOne({ email: email, otp: otp }, { status: updateStatus });
-
-            return { success: true, updatedOtp: otpUpdate };
-        } else {
-            return { success: false };
-        }
-    } catch (error) {
-        console.error(error);
-        throw error;
+    else{
+      return res.status(200).json({ status: 'fail', data: 'Otp not matched' });
     }
+
+  }
+
+  catch(error){
+    res.status(200).json({ status: 'fail', data: error });
+
+  }
+
+
+  
 }
+
+
+
+// otp reset password end
+
                                                                                                                                                                                     
