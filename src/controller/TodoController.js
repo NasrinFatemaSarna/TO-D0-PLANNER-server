@@ -57,7 +57,7 @@ exports.todoListByStatus = async (req, res) => {
         const result = await TodoModel.aggregate(
             [
                 { $match: { email: email, status: status } },
-                {$project:{ _id: 1, title: 1, description: 1, status: 1, cratedDate:{$dateToString: {format: "%d-%m-%Y", date: "$cratedDate"}}  }}
+                {$project:{ _id: 1, title: 1, description: 1, status: 1, createdDate:{$dateToString: {format: "%d-%m-%Y", date: "$cratedDate"}}  }}
                 
             ]
         )
