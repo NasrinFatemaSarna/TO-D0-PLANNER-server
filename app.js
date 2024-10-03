@@ -13,17 +13,14 @@ app.use(cors())
 // app.use(express.json())
 
 
-const uri = `mongodb+srv://mernpractice:${process.env.DB_PASSWORD}@cluster0.0uasavi.mongodb.net/ToDoPlanner?retryWrites=true&w=majority`;
-const options = { user: process.env.DB_USERNAME, pass: process.env.DB_PASSWORD };
+const uri =`mongodb+srv://mernpractice:<password>@cluster0.0uasavi.mongodb.net/FirstTask?retryWrites=true&w=majority`
 
-// mongodb+srv://mernpractice:mernpractice@cluster0.0uasavi.mongodb.net/?retryWrites=true&w=majority
-
-app.use("/api/v1/", route)
-app.use(rateLimit({windowMs: 15 * 60 * 1000,max: 2000}))
+const options = {user:"mernpractice", pass:"mernpractice"}
 
 mongoose.connect(uri, options)
-.then(()=> console.log('database connected'))
-.catch((err)=> console.log(err))
+.then(()=>{console.log("database connected");})
+.catch((err)=>{console.log(err)})
+
 
 
 // database connenction end
@@ -46,7 +43,7 @@ app.use("*", (req, res)=>{
 
 
     
-
+  //  http://localhost:8000/api/v1
 
 
 
